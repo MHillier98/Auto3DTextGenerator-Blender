@@ -2,6 +2,7 @@ import bpy
 import os
 import string
 
+
 bl_info = {
     "name": "3D Text Generator",
     "author": "Matthew Hillier",
@@ -14,7 +15,8 @@ bl_info = {
     "category": "Add Mesh",
 }
 
-def main(context):
+
+def generate_buttton(context):
     all_chars = list(string.ascii_letters) + list(string.digits)
 
     chars_collection = bpy.data.collections.new("All Chars")
@@ -40,17 +42,42 @@ def main(context):
 
 class TextGenerator(bpy.types.Operator):
     """Tooltip"""
-    bl_idname = "object.text_generator"
-    bl_label = "3D Text Generator"
+    bl_idname = "mhillier.generate_text"
+    bl_label = "Generate Text"
 
     def execute(self, context):
-        main(context)
+        generate_buttton(context)
         return {'FINISHED'}
+
+
+
+
+def clear_buttton(context):
+    bpy.ops.object.select_all()
+    bpy.ops.object.select_all()
+    bpy.ops.object.delete(use_global=False)
+    for c in bpy.data.collections:
+        bpy.data.collections.remove(c)
+
+
+
+
+class RemoveAll(bpy.types.Operator):
+    """Tooltip"""
+    bl_idname = "mhillier.remove_all"
+    bl_label = "Delete EVERYTHING!"
+
+    def execute(self, context):
+        clear_buttton(context)
+        return {'FINISHED'}
+
+
+
 
 
 class LayoutDemoPanel(bpy.types.Panel):
     """Creates a Panel in the scene context of the properties editor"""
-    bl_label = "Layout Demo"
+    bl_label = "3D Text Generator"
     bl_idname = "SCENE_PT_layout"
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
@@ -58,24 +85,29 @@ class LayoutDemoPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-
         scene = context.scene
 
-        # Big render button
-        layout.label(text="Big Button:")
+        layout.label(text="Empty Scene")
         row = layout.row()
         row.scale_y = 2.0
-        row.operator("object.text_generator")
+        row.operator("mhillier.remove_all")
+
+        layout.label(text="Text Generator")
+        row = layout.row()
+        row.scale_y = 2.0
+        row.operator("mhillier.generate_text")
 
 
 def register():
     bpy.utils.register_class(TextGenerator)
     bpy.utils.register_class(LayoutDemoPanel)
+    bpy.utils.register_class(RemoveAll)
 
 
 def unregister():
     bpy.utils.unregister_class(LayoutDemoPanel)
     bpy.utils.unregister_class(TextGenerator)
+    bpy.utils.unregister_class(RemoveAll)
 
 
 if __name__ == "__main__":
