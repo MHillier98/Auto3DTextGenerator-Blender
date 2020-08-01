@@ -17,14 +17,13 @@ bl_info = {
 
 
 def generate_buttton(context):
-    all_chars = list(string.ascii_letters) + list(string.digits)
+    all_chars = list(string.ascii_uppercase) + list(string.digits)
 
     chars_collection = bpy.data.collections.new("All Chars")
     bpy.context.scene.collection.children.link(chars_collection)
 
     for i in all_chars:
-        char_name = "char: " + i
-        # print(char_name)
+        char_name = "char-" + i
         font_curve = bpy.data.curves.new(type="FONT", name="font_curve: " + i)
         font_curve.body = i
         font_curve.extrude = 0.05
@@ -50,8 +49,6 @@ class TextGenerator(bpy.types.Operator):
         return {'FINISHED'}
 
 
-
-
 def clear_buttton(context):
     bpy.ops.object.select_all()
     bpy.ops.object.select_all()
@@ -59,20 +56,32 @@ def clear_buttton(context):
     for c in bpy.data.collections:
         bpy.data.collections.remove(c)
 
-
-
-
 class RemoveAll(bpy.types.Operator):
     """Tooltip"""
     bl_idname = "mhillier.remove_all"
-    bl_label = "Delete EVERYTHING!"
+    bl_label = "DELETE EVERYTHING!"
 
     def execute(self, context):
         clear_buttton(context)
         return {'FINISHED'}
 
 
+def export_all_obj(exportFolder):
+    objects = bpy.data.objects
+    for object in objects:
+        bpy.ops.object.select_all(action='DESELECT')
+        object.select_set(state=True)
+        exportName = exportFolder + object.name + '.obj'
+        bpy.ops.export_scene.obj(filepath=exportName, use_selection=True)
 
+class ExportAll(bpy.types.Operator):
+    """Tooltip"""
+    bl_idname = "mhillier.export_all"
+    bl_label = "Export all chars to .obj"
+
+    def execute(self, context):
+        export_all_obj('C:\\Users\\Matthew\\Desktop\\Blender\\test\\')
+        return {'FINISHED'}
 
 
 class LayoutDemoPanel(bpy.types.Panel):
@@ -89,25 +98,32 @@ class LayoutDemoPanel(bpy.types.Panel):
 
         layout.label(text="Empty Scene")
         row = layout.row()
-        row.scale_y = 2.0
+        row.scale_y = 1.5
         row.operator("mhillier.remove_all")
 
         layout.label(text="Text Generator")
         row = layout.row()
-        row.scale_y = 2.0
+        row.scale_y = 1.5
         row.operator("mhillier.generate_text")
+
+        layout.label(text="Export chars")
+        row = layout.row()
+        row.scale_y = 1.5
+        row.operator("mhillier.export_all")
 
 
 def register():
     bpy.utils.register_class(TextGenerator)
     bpy.utils.register_class(LayoutDemoPanel)
     bpy.utils.register_class(RemoveAll)
+    bpy.utils.register_class(ExportAll)
 
 
 def unregister():
     bpy.utils.unregister_class(LayoutDemoPanel)
     bpy.utils.unregister_class(TextGenerator)
     bpy.utils.unregister_class(RemoveAll)
+    bpy.utils.unregister_class(ExportAll)
 
 
 if __name__ == "__main__":
