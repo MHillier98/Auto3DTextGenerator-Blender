@@ -1,6 +1,6 @@
 # Auto 3D Text Generator - Blender
 
-This addon can automatically create text objects of letters and numbers, convert them to meshes, and export them to .obj files.
+This Blender Addon can automatically create text objects of letters and numbers, convert them to meshes, and export them to .obj files.
 
 Currently, I've hardcoded in the font settings, but I would like to add additional UI options in the future for these.
 
