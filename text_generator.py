@@ -41,7 +41,7 @@ def generate_buttton(context):
 
 class TextGenerator(bpy.types.Operator):
     """Tooltip"""
-    bl_idname = "mhillier.generate_text"
+    bl_idname = "3dtextgen.generate_text"
     bl_label = "Generate Text"
 
     def execute(self, context):
@@ -58,7 +58,7 @@ def clear_buttton(context):
 
 class RemoveAll(bpy.types.Operator):
     """Tooltip"""
-    bl_idname = "mhillier.remove_all"
+    bl_idname = "3dtextgen.remove_all"
     bl_label = "DELETE EVERYTHING!"
 
     def execute(self, context):
@@ -76,7 +76,7 @@ def export_all_obj(exportFolder):
 
 class ExportAll(bpy.types.Operator):
     """Tooltip"""
-    bl_idname = "mhillier.export_all"
+    bl_idname = "3dtextgen.export_all"
     bl_label = "Export all chars to .obj"
 
     def execute(self, context):
@@ -99,17 +99,17 @@ class LayoutDemoPanel(bpy.types.Panel):
         layout.label(text="Empty Scene")
         row = layout.row()
         row.scale_y = 1.5
-        row.operator("mhillier.remove_all")
+        row.operator("3dtextgen.remove_all")
 
         layout.label(text="Text Generator")
         row = layout.row()
         row.scale_y = 1.5
-        row.operator("mhillier.generate_text")
+        row.operator("3dtextgen.generate_text")
 
         layout.label(text="Export chars")
         row = layout.row()
         row.scale_y = 1.5
-        row.operator("mhillier.export_all")
+        row.operator("3dtextgen.export_all")
 
 
 def register():
