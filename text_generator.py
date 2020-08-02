@@ -2,7 +2,6 @@ import bpy
 import os
 import string
 
-
 bl_info = {
     "name": "3D Text Generator",
     "author": "Matthew Hillier",
@@ -39,6 +38,7 @@ def generate_buttton(context):
         bpy.context.view_layer.objects.active = objectToSelect
         bpy.ops.object.convert(target='MESH')
 
+
 class TextGenerator(bpy.types.Operator):
     """Tooltip"""
     bl_idname = "3dtextgen.generate_text"
@@ -55,6 +55,7 @@ def clear_buttton(context):
     bpy.ops.object.delete(use_global=False)
     for c in bpy.data.collections:
         bpy.data.collections.remove(c)
+
 
 class RemoveAll(bpy.types.Operator):
     """Tooltip"""
@@ -73,6 +74,7 @@ def export_all_obj(exportFolder):
         object.select_set(state=True)
         exportName = exportFolder + object.name + '.obj'
         bpy.ops.export_scene.obj(filepath=exportName, use_selection=True)
+
 
 class ExportAll(bpy.types.Operator):
     """Tooltip"""
