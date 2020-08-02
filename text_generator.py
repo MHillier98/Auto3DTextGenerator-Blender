@@ -28,7 +28,7 @@ def generate_buttton(context):
         font_curve.extrude = 0.05
         font_curve.font = bpy.data.fonts.load('C:\\Windows\\Fonts\\Georgia.ttf')
         font_curve.align_x = 'CENTER'
-        font_curve.align_y = 'BOTTOM_BASELINE'
+        font_curve.align_y = 'CENTER'
         font_obj = bpy.data.objects.new(char_name, font_curve)
 
         bpy.data.collections['All Chars'].objects.link(font_obj)
