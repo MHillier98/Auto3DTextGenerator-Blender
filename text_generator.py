@@ -16,7 +16,9 @@ bl_info = {
 
 
 def generate_buttton(context):
-    all_chars = list(string.ascii_uppercase) + list(string.digits)
+    custom_chars = ['10', '11', '12']
+    all_chars = list(string.ascii_uppercase) + \
+        list(string.digits) + custom_chars
 
     chars_collection = bpy.data.collections.new("All Chars")
     bpy.context.scene.collection.children.link(chars_collection)
@@ -26,7 +28,9 @@ def generate_buttton(context):
         font_curve = bpy.data.curves.new(type="FONT", name="font_curve: " + i)
         font_curve.body = i
         font_curve.extrude = 0.05
-        font_curve.font = bpy.data.fonts.load('C:\\Windows\\Fonts\\Georgia.ttf')
+        font_curve.font = bpy.data.fonts.load('C:\\Windows\\Fonts\\GARA.ttf')
+
+        bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
         font_curve.align_x = 'CENTER'
         font_curve.align_y = 'CENTER'
         font_obj = bpy.data.objects.new(char_name, font_curve)
