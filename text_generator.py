@@ -87,7 +87,7 @@ class ExportAll(bpy.types.Operator):
     bl_label = "Export all chars to .obj"
 
     def execute(self, context):
-        output_path = 'C:\\Users\\Matthew\\Desktop\\Generated3DText\\'
+        output_path = 'C:\\Users\\Matthew\\Desktop\\Blender\\3DText\\'
         export_all_obj(output_path)
         return {'FINISHED'}
 
