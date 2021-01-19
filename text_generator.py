@@ -16,7 +16,8 @@ bl_info = {
 
 
 def generate_buttton(context):
-    custom_chars = ['10', '11', '12']
+    custom_chars = ['10', '11', '12', '13', '14', '15', '16',
+                    '17', '18', '19', 'Catan', 'TotallyNotCatan', 'Matthew', 'SaxOps1']
     all_chars = list(string.ascii_uppercase) + \
         list(string.digits) + custom_chars
 
@@ -86,7 +87,8 @@ class ExportAll(bpy.types.Operator):
     bl_label = "Export all chars to .obj"
 
     def execute(self, context):
-        export_all_obj('C:\\Users\\Matthew\\Desktop\\Blender\\test\\')
+        output_path = 'C:\\Users\\Matthew\\Desktop\\Generated3DText\\'
+        export_all_obj(output_path)
         return {'FINISHED'}
 
 
